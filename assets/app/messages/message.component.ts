@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 
 import { Message } from "./message.model";
 import { MessageService } from "./message.service";
-
+import { CookieService } from 'angular2-cookie/core';
 @Component({
     selector: 'app-message',
     templateUrl: './message.component.html',
@@ -24,7 +24,7 @@ import { MessageService } from "./message.service";
 export class MessageComponent {
     @Input() message: Message;
 
-    constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService, private cookieService: CookieService) {}
 
     onEdit() {
         this.messageService.editMessage(this.message);
@@ -35,5 +35,9 @@ export class MessageComponent {
             .subscribe(
                 result => console.log(result)
             );
+    }
+
+    belongsToUser(){
+        return this.cookieService.get('user-id') == this.message.userId;
     }
 }

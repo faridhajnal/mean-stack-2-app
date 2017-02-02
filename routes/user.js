@@ -39,7 +39,7 @@ router.post('/signin', (req, res) => {
         if(!user || !bcrypt.compareSync(req.body.password, user.password)){
             return res.status(404).json({
                 title : 'Login Failed',
-                error : 'wtf'
+                error : { message : 'invalid credentials'}
             });
         }
 

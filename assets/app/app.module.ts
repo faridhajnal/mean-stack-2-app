@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { AuthService } from './auth/auth.service';
+import { ErrorService } from './errors/error.service';
+import { CookieService } from 'angular2-cookie/services/cookies.service'
 
 import { AppComponent } from "./app.component";
 import { MessageComponent } from "./messages/message.component";
@@ -15,6 +18,7 @@ import { LogoutComponent } from "./auth/logout.component";
 import { SignupComponent } from "./auth/signup.component";
 import { SigninComponent } from "./auth/signin.component";
 import { WelcomeComponent } from "./auth/welcome.component";
+import { ErrorComponent } from "./errors/error.component";
 @NgModule({
     declarations: [
         AppComponent,
@@ -27,7 +31,8 @@ import { WelcomeComponent } from "./auth/welcome.component";
         LogoutComponent,
         SignupComponent,
         SigninComponent,
-        WelcomeComponent
+        WelcomeComponent,
+        ErrorComponent
     ],
     imports: [
         BrowserModule,
@@ -36,6 +41,7 @@ import { WelcomeComponent } from "./auth/welcome.component";
         ReactiveFormsModule,
         HttpModule
     ],
+    providers : [ErrorService, AuthService, CookieService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
