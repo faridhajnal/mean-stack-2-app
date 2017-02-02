@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 import { ErrorService } from "../errors/error.service";
 
 const LOCALROUTE = "http://localhost:3000";
-const HEROKUROUTE = "https://angular-node-example-messages.herokuapp.com/";
+const HEROKUROUTE = "https://angular-node-example-messages.herokuapp.com";
 
 @Injectable()
 

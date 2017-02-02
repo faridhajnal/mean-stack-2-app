@@ -8,7 +8,7 @@ import { ErrorService } from '../errors/error.service';
 
 const LOCALROUTE = "http://localhost:3000";
 
-const HEROKUROUTE = "https://angular-node-example-messages.herokuapp.com/";
+const HEROKUROUTE = "https://angular-node-example-messages.herokuapp.com";
 
 @Injectable()
 export class MessageService {
@@ -70,7 +70,7 @@ export class MessageService {
     deleteMessage(message: Message) {
         this.messages.splice(this.messages.indexOf(message), 1);
         const token = this.cookieService.get('auth-token') ? '?token=' + this.cookieService.get('auth-token') : '';
-        return this.http.delete( HEROKUROUTE +'/message/' + message.messageId + token)
+        return this.http.delete(HEROKUROUTE +'/message/' + message.messageId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
