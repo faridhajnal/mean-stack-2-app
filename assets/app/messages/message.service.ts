@@ -6,6 +6,10 @@ import { Observable } from "rxjs";
 import { Message } from "./message.model";
 import { ErrorService } from '../errors/error.service';
 
+const LOCALROUTE = "http://localhost:3000";
+
+const HEROKUROUTE = "https://angular-node-example-messages.herokuapp.com/";
+
 @Injectable()
 export class MessageService {
     private messages: Message[] = [];
@@ -17,7 +21,7 @@ export class MessageService {
         const body = JSON.stringify(message);
         const headers = new Headers({'Content-Type': 'application/json'});
         const token = this.cookieService.get('auth-token') ? '?token=' + this.cookieService.get('auth-token') : '';
-        return this.http.post('http://localhost:3000/message' + token, body, {headers: headers})
+        return this.http.post(HEROKUROUTE +'/message' + token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json();
                 const message = new Message(result.obj.content, result.obj.user.firstName, result.obj._id, result.obj.user._id);
@@ -31,7 +35,7 @@ export class MessageService {
     }
 
     getMessages() {
-        return this.http.get('http://localhost:3000/message')
+        return this.http.get(HEROKUROUTE +'/message')
             .map((response: Response) => {
                 const messages = response.json().obj;
                 let transformedMessages: Message[] = [];
@@ -55,7 +59,7 @@ export class MessageService {
         const body = JSON.stringify(message);
         const headers = new Headers({'Content-Type': 'application/json'});
         const token = this.cookieService.get('auth-token') ? '?token=' + this.cookieService.get('auth-token') : '';
-        return this.http.patch('http://localhost:3000/message/' + message.messageId + token, body, {headers: headers})
+        return this.http.patch(HEROKUROUTE +'/message/' + message.messageId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -66,7 +70,7 @@ export class MessageService {
     deleteMessage(message: Message) {
         this.messages.splice(this.messages.indexOf(message), 1);
         const token = this.cookieService.get('auth-token') ? '?token=' + this.cookieService.get('auth-token') : '';
-        return this.http.delete('http://localhost:3000/message/' + message.messageId + token)
+        return this.http.delete( HEROKUROUTE +'/message/' + message.messageId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

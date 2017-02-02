@@ -6,6 +6,9 @@ import { CookieService } from 'angular2-cookie/core';
 import { Observable } from "rxjs";
 import { ErrorService } from "../errors/error.service";
 
+const LOCALROUTE = "http://localhost:3000";
+const HEROKUROUTE = "https://angular-node-example-messages.herokuapp.com/";
+
 @Injectable()
 
 export class AuthService {
@@ -19,7 +22,7 @@ export class AuthService {
         const headers = new Headers({
             'Content-Type' : 'application/json'
         });
-        return this.http.post('http://localhost:3000/user', body, {headers : headers})
+        return this.http.post(HEROKUROUTE +' /user', body, {headers : headers})
         .map((response : Response) => response.json())
         .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -33,7 +36,7 @@ export class AuthService {
         const headers = new Headers({
             'Content-Type' : 'application/json'
         });
-        return this.http.post('http://localhost:3000/user/signin', body, {headers : headers})
+        return this.http.post(HEROKUROUTE +'/user/signin', body, {headers : headers})
         .map((response : Response) => response.json())
         .catch((error: Response) => {
                 this.errorService.handleError(error.json());
